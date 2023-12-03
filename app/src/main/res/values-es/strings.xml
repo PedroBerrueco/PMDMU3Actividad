@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="username_login">usuario</string>
+    <string name="title_login">INICIO</string>
+    <string name="password_login">contraseña</string>
+    <string name="access_login">Accede</string>
+    <string name="register_login">Registrate</string>
+    <string name="title_register">REGISTRO</string>
+</resources>
