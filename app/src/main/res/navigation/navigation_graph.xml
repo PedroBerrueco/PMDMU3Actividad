@@ -18,4 +18,13 @@
         android:name="com.pberrueco.pmdmu3actividad.RegisterFragment"
         android:label="fragment_register2"
         tools:layout="@layout/fragment_register2" />
+    <fragment
+        android:id="@+id/taskFragment"
+        android:name="com.pberrueco.pmdmu3actividad.TaskFragment"
+        android:label="fragment_task"
+        tools:layout="@layout/fragment_task" >
+        <action
+            android:id="@+id/action_taskFragment_to_registerFragment"
+            app:destination="@id/registerFragment" />
+    </fragment>
 </navigation>

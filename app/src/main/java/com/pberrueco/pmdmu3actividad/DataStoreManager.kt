@@ -38,4 +38,14 @@ object DataStoreManager {
         }
     }
 
+    suspend fun deleteUser(context: Context, username: String) {
+        val userNameKey = stringPreferencesKey("user_name")
+        val passwordKey = stringPreferencesKey("password")
+
+        context.dataStore.edit { editor ->
+            editor.remove(userNameKey)
+            editor.remove(passwordKey)
+        }
+    }
+
 }
