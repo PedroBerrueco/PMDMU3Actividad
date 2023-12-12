@@ -49,6 +49,8 @@ dependencies {
     //navegation
     implementation("androidx.navigation:navigation-fragment-ktx:2.7.5")
     implementation("androidx.navigation:navigation-ui-ktx:2.7.5")
+    //Glide
+    implementation ("com.github.bumptech.glide:glide:4.16.0")
     //Corroutines
     implementation ("androidx.lifecycle:lifecycle-runtime-ktx:2.6.1")
     //DataStore
