@@ -35,6 +35,24 @@ class TaskFragment : Fragment() {
         val user = arguments?.getString("user")
         binding.etTaskfrag.text = user
 
+        binding.rvTareas.adapter = TareasAdapter(
+            listOf(
+                Tarea("Tittle 1", "Ldjkasbdksabdjbsa´fbjsdkjdbshbsdsdjfbvcjsdkhvfksdvfjkdsvfjvdsfvdsjfvjhdvfjhsvfjvshjfvdsjvfsvflavdfadlvfalkbsdksabdkbdhksa  djhasvdhj sd sa  ahsdvhsa vhsavfdhjsav fjhasvjhas"),
+                Tarea("Tittle 2", "Ldjkasbdksabdjbsa´fbjsdkjdbshbsdsdjfbvcjsdkhvfksdvfjkdsvfjvdsfvdsjfvjhdvfjhsvfjvshjfvdsjvfsvflavdfadlvfalkbsdksabdkbdhksa  djhasvdhj sd sa  ahsdvhsa vhsavfdhjsav fjhasvjhas"),
+                Tarea("Tittle 3", "Ldjkasbdksabdjbsa´fbjsdkjdbshbsdsdjfbvcjsdkhvfksdvfjkdsvfjvdsfvdsjfvjhdvfjhsvfjvshjfvdsjvfsvflavdfadlvfalkbsdksabdkbdhksa  djhasvdhj sd sa  ahsdvhsa vhsavfdhjsav fjhasvjhas"),
+                Tarea("Tittle 4", "Ldjkasbdksabdjbsa´fbjsdkjdbshbsdsdjfbvcjsdkhvfksdvfjkdsvfjvdsfvdsjfvjhdvfjhsvfjvshjfvdsjvfsvflavdfadlvfalkbsdksabdkbdhksa  djhasvdhj sd sa  ahsdvhsa vhsavfdhjsav fjhasvjhas"),
+                Tarea("Tittle 5", "Ldjkasbdksabdjbsa´fbjsdkjdbshbsdsdjfbvcjsdkhvfksdvfjkdsvfjvdsfvdsjfvjhdvfjhsvfjvshjfvdsjvfsvflavdfadlvfalkbsdksabdkbdhksa  djhasvdhj sd sa  ahsdvhsa vhsavfdhjsav fjhasvjhas"),
+                Tarea("Tittle 6", "Ldjkasbdksabdjbsa´fbjsdkjdbshbsdsdjfbvcjsdkhvfksdvfjkdsvfjvdsfvdsjfvjhdvfjhsvfjvshjfvdsjvfsvflavdfadlvfalkbsdksabdkbdhksa  djhasvdhj sd sa  ahsdvhsa vhsavfdhjsav fjhasvjhas"),
+            ),
+            object : TareaClickedListener {
+                override fun onTareaCliked(tarea: Tarea) {
+                    var titulo = tarea.tittle
+                    Toast.makeText(context, "$titulo PULSADO", Toast.LENGTH_SHORT).show()
+                }
+
+            }
+        )
+
         if(!logged){
             gotoRegister()
         }
