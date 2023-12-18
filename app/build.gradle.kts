@@ -58,6 +58,7 @@ dependencies {
     //DataStore
     implementation ("androidx.datastore:datastore-preferences:1.0.0")
     implementation("androidx.room:room-ktx:2.6.1")
+    implementation("androidx.media3:media3-database:1.2.0")
     //Room
     //runtimeOnly("androidx.room:room-runtime:2.6.1")
     val room_version = "2.6.1"
@@ -65,7 +66,7 @@ dependencies {
     implementation ("androidx.room:room-runtime:$room_version")
     kapt ("androidx.room:room-compiler:$room_version")
     implementation ("androidx.room:room-ktx:$room_version")
-    
+
 
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")

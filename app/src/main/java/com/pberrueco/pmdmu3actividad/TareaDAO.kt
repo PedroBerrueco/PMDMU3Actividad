@@ -6,7 +6,6 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
-import com.pberrueco.pmdmu3actividad.Tareas
 
 @Dao
 interface TareasDAO {
@@ -23,7 +22,7 @@ interface TareasDAO {
     suspend fun updateTask(tareas: Tareas)
 
     @Query("SELECT * FROM tareas")
-    suspend fun getAllTask(): List<Tareas>
+    fun getAllTask(): List<Tareas>
 
     @Query("SELECT * FROM tareas WHERE id=:listId")
     suspend fun getOneTask(listId: Int): Tareas
