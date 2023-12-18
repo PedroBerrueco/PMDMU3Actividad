@@ -1,6 +1,5 @@
 package com.pberrueco.pmdmu3actividad
 
-
 import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
@@ -45,30 +44,12 @@ class TaskFragment : Fragment() {
         Log.d("TaskFragment", "onViewCreated")
 
         binding.rvTareas.adapter = tareasAdapter
+        showMeList()
 
         binding.fabAdd.setOnClickListener {
             showAddTaskDialog()
         }
 
-        /*
-        binding.rvTareas.adapter = TareasAdapter(
-            listOf(
-                Tarea("Tittle 1", "Ldjkasbdksabdjbsa´fbjsdkjdbshbsdsdjfbvcjsdkhvfksdvfjkdsvfjvdsfvdsjfvjhdvfjhsvfjvshjfvdsjvfsvflavdfadlvfalkbsdksabdkbdhksa  djhasvdhj sd sa  ahsdvhsa vhsavfdhjsav fjhasvjhas"),
-                Tarea("Tittle 2", "Ldjkasbdksabdjbsa´fbjsdkjdbshbsdsdjfbvcjsdkhvfksdvfjkdsvfjvdsfvdsjfvjhdvfjhsvfjvshjfvdsjvfsvflavdfadlvfalkbsdksabdkbdhksa  djhasvdhj sd sa  ahsdvhsa vhsavfdhjsav fjhasvjhas"),
-                Tarea("Tittle 3", "Ldjkasbdksabdjbsa´fbjsdkjdbshbsdsdjfbvcjsdkhvfksdvfjkdsvfjvdsfvdsjfvjhdvfjhsvfjvshjfvdsjvfsvflavdfadlvfalkbsdksabdkbdhksa  djhasvdhj sd sa  ahsdvhsa vhsavfdhjsav fjhasvjhas"),
-                Tarea("Tittle 4", "Ldjkasbdksabdjbsa´fbjsdkjdbshbsdsdjfbvcjsdkhvfksdvfjkdsvfjvdsfvdsjfvjhdvfjhsvfjvshjfvdsjvfsvflavdfadlvfalkbsdksabdkbdhksa  djhasvdhj sd sa  ahsdvhsa vhsavfdhjsav fjhasvjhas"),
-                Tarea("Tittle 5", "Ldjkasbdksabdjbsa´fbjsdkjdbshbsdsdjfbvcjsdkhvfksdvfjkdsvfjvdsfvdsjfvjhdvfjhsvfjvshjfvdsjvfsvflavdfadlvfalkbsdksabdkbdhksa  djhasvdhj sd sa  ahsdvhsa vhsavfdhjsav fjhasvjhas"),
-                Tarea("Tittle 6", "Ldjkasbdksabdjbsa´fbjsdkjdbshbsdsdjfbvcjsdkhvfksdvfjkdsvfjvdsfvdsjfvjhdvfjhsvfjvshjfvdsjvfsvflavdfadlvfalkbsdksabdkbdhksa  djhasvdhj sd sa  ahsdvhsa vhsavfdhjsav fjhasvjhas"),
-            ),
-            object : TareaClickedListener {
-                override fun onTareaCliked(tarea: Tarea) {
-                    var titulo = tarea.tittle
-                    Toast.makeText(context, "$titulo PULSADO", Toast.LENGTH_SHORT).show()
-                }
-
-            }
-        )
-         */
 
         if(!logged){
             gotoRegister()
@@ -97,8 +78,18 @@ class TaskFragment : Fragment() {
             }
         }
 
-        binding.fabAdd.setOnClickListener {
-            showAddTaskDialog()
+    }
+
+    private fun showMeList() {
+        lifecycleScope.launch(Dispatchers.IO) {
+            val dao = (requireActivity().application as MyAplication).room.tareaDao()
+            val updatedData = dao.getAllTask()
+
+            // Cambiar al hilo principal para actualizar la interfaz de usuario
+            lifecycleScope.launch(Dispatchers.Main) {
+                // Ahora llama a updateData() en el hilo principal
+                tareasAdapter.updateData(updatedData)
+            }
         }
     }
 
