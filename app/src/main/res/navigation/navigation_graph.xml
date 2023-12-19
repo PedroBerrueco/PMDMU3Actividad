@@ -6,7 +6,7 @@
     app:startDestination="@id/loginFragment">
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.pberrueco.pmdmu3actividad.LoginFragment"
+        android:name="com.pberrueco.pmdmu3actividad.ui.auth.LoginFragment"
         android:label="fragment_login2"
         tools:layout="@layout/fragment_login2" >
         <action
@@ -15,12 +15,12 @@
     </fragment>
     <fragment
         android:id="@+id/registerFragment"
-        android:name="com.pberrueco.pmdmu3actividad.RegisterFragment"
+        android:name="com.pberrueco.pmdmu3actividad.ui.auth.RegisterFragment"
         android:label="fragment_register2"
         tools:layout="@layout/fragment_register2" />
     <fragment
         android:id="@+id/taskFragment"
-        android:name="com.pberrueco.pmdmu3actividad.TaskFragment"
+        android:name="com.pberrueco.pmdmu3actividad.ui.task.TaskFragment"
         android:label="fragment_task"
         tools:layout="@layout/fragment_task" >
         <action

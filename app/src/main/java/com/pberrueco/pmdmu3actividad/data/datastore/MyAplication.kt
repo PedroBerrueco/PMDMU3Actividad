@@ -1,7 +1,8 @@
-package com.pberrueco.pmdmu3actividad
+package com.pberrueco.pmdmu3actividad.data.datastore
 
 import android.app.Application
 import androidx.room.Room
+import com.pberrueco.pmdmu3actividad.data.room.TaskDataBase
 
 class MyAplication : Application() {
 

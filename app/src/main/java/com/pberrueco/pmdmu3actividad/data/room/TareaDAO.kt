@@ -1,4 +1,4 @@
-package com.pberrueco.pmdmu3actividad
+package com.pberrueco.pmdmu3actividad.data.room
 
 import androidx.room.Dao
 import androidx.room.Delete

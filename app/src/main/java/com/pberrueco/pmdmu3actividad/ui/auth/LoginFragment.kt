@@ -1,22 +1,20 @@
-package com.pberrueco.pmdmu3actividad
+package com.pberrueco.pmdmu3actividad.ui.auth
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import com.pberrueco.pmdmu3actividad.data.datastore.DataStoreManager
 import com.pberrueco.pmdmu3actividad.databinding.FragmentLogin2Binding
+import com.pberrueco.pmdmu3actividad.ui.task.TaskActivity
 import kotlinx.coroutines.CompletableDeferred
-import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 
 class LoginFragment : Fragment() {
@@ -75,7 +73,9 @@ class LoginFragment : Fragment() {
     }
 
     private fun toRegister() {
-        val action = LoginFragmentDirections.actionLoginFragmentToRegisterFragment()
+        val action =
+            LoginFragmentDirections.actionLoginFragmentToRegisterFragment()
+            //com.pberrueco.pmdmu3actividad.LoginFragmentDirections.actionLoginFragmentToRegisterFragment()
         findNavController().navigate(action)
     }
 

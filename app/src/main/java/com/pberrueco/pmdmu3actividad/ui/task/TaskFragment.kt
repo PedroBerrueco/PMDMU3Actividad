@@ -1,4 +1,4 @@
-package com.pberrueco.pmdmu3actividad
+package com.pberrueco.pmdmu3actividad.ui.task
 
 import android.app.AlertDialog
 import android.content.Intent
@@ -11,7 +11,13 @@ import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import com.pberrueco.pmdmu3actividad.data.room.Tareas
+import com.pberrueco.pmdmu3actividad.data.datastore.DataStoreManager
+import com.pberrueco.pmdmu3actividad.data.datastore.MyAplication
 import com.pberrueco.pmdmu3actividad.databinding.FragmentTaskBinding
+import com.pberrueco.pmdmu3actividad.ui.main.MainActivity
+import com.pberrueco.pmdmu3actividad.util.TareasAdapter
+import com.pberrueco.pmdmu3actividad.util.TareasAdapterListener
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 

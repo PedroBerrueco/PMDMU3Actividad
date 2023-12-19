@@ -1,4 +1,4 @@
-package com.pberrueco.pmdmu3actividad
+package com.pberrueco.pmdmu3actividad.data.room
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

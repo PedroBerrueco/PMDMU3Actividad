@@ -1,4 +1,4 @@
-package com.pberrueco.pmdmu3actividad
+package com.pberrueco.pmdmu3actividad.ui.main
 
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity

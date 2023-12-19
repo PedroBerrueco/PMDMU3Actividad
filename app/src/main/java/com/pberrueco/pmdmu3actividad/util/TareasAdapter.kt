@@ -1,9 +1,10 @@
-package com.pberrueco.pmdmu3actividad
+package com.pberrueco.pmdmu3actividad.util
 
 import android.app.AlertDialog
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.pberrueco.pmdmu3actividad.data.room.Tareas
 import com.pberrueco.pmdmu3actividad.databinding.ViewTareaItemBinding
 
 interface TareasAdapterListener {

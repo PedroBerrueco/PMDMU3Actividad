@@ -1,8 +1,8 @@
-package com.pberrueco.pmdmu3actividad
+package com.pberrueco.pmdmu3actividad.ui.task
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.pberrueco.pmdmu3actividad.databinding.ActivityMainBinding
+import androidx.appcompat.app.AppCompatActivity
+import com.pberrueco.pmdmu3actividad.R
 import com.pberrueco.pmdmu3actividad.databinding.ActivityTaskBinding
 
 class TaskActivity : AppCompatActivity() {
