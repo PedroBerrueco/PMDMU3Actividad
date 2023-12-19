@@ -3,7 +3,6 @@ package com.pberrueco.pmdmu3actividad
 import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,17 +16,13 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 
-class TaskFragment : Fragment() {
+class TaskFragment : Fragment(), TareasAdapterListener {
     private lateinit var _binding: FragmentTaskBinding
     private val binding: FragmentTaskBinding get() = _binding
     var logged = true
 
     private val tareasAdapter: TareasAdapter by lazy {
-        TareasAdapter(listOf()) { tarea ->
-            // Lógica cuando se hace clic en una tarea
-            var titulo = tarea.tittle
-            Toast.makeText(context, "$titulo PULSADO", Toast.LENGTH_SHORT).show()
-        }
+        TareasAdapter(listOf(), this)
     }
 
     override fun onCreateView(
@@ -41,7 +36,9 @@ class TaskFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        Log.d("TaskFragment", "onViewCreated")
+        //REcuperamos usuario y lo pintamos en editText
+        val user = arguments?.getString("user")
+        binding.etTaskfrag.text = "Hola $user"
 
         binding.rvTareas.adapter = tareasAdapter
         showMeList()
@@ -150,7 +147,6 @@ class TaskFragment : Fragment() {
 
 
 
-
     private fun gotoRegister() {
         logged = false;
         val intent = Intent(requireContext(), MainActivity::class.java)
@@ -181,6 +177,99 @@ class TaskFragment : Fragment() {
         dialog.show()
     }
 
+    override fun onTareaClicked(tarea: Tareas) {
+        tareasAdapter.listener.mostrarOpciones(tarea)
+    }
+    override fun onEliminarTarea(tarea: Tareas) {
+        // Lógica para eliminar la tarea de la base de datos Room
+        lifecycleScope.launch(Dispatchers.IO) {
+            val dao = (requireActivity().application as MyAplication).room.tareaDao()
+            dao.deleteTask(tarea)
+
+            // Obtén los datos actualizados en el hilo de fondo
+            val updatedData = dao.getAllTask()
+
+            // Cambiar al hilo principal para actualizar la interfaz de usuario
+            lifecycleScope.launch(Dispatchers.Main) {
+                // Ahora llama a updateData() en el hilo principal
+                tareasAdapter.updateData(updatedData)
+            }
+        }
+    }
+    override fun onModificarTarea(tarea: Tareas) {
+        val builder = AlertDialog.Builder(requireContext())
+        builder.setTitle("Modificar Tarea")
+
+        val inputLayout = LinearLayout(requireContext())
+        inputLayout.orientation = LinearLayout.VERTICAL
+
+        val inputTitle = EditText(requireContext())
+        inputTitle.hint = "Nuevo Título"
+        inputTitle.setText(tarea.tittle)  // Establecer el título actual como texto predeterminado
+        inputLayout.addView(inputTitle)
+
+        val inputDescription = EditText(requireContext())
+        inputDescription.hint = "Nueva Descripción"
+        inputDescription.setText(tarea.description)  // Establecer la descripción actual como texto predeterminado
+        inputLayout.addView(inputDescription)
+
+        builder.setView(inputLayout)
+
+        builder.setPositiveButton("Guardar") { _, _ ->
+            val newTitle = inputTitle.text.toString()
+            val newDescription = inputDescription.text.toString()
+
+            // Actualizar la tarea si el nuevo título no está vacío
+            if (newTitle.isNotEmpty()) {
+                val updatedTask = tarea.copy(tittle = newTitle, description = newDescription)
+                updateTask(updatedTask)
+                Toast.makeText(requireContext(), "Tarea modificada", Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(
+                    requireContext(),
+                    "El nuevo título no puede estar vacío",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        }
+
+        builder.setNegativeButton("Cancelar") { dialog, _ ->
+            dialog.cancel()
+        }
+
+        builder.show()
+    }
+
+    private fun updateTask(updatedTask: Tareas) {
+        lifecycleScope.launch(Dispatchers.IO) {
+            val dao = (requireActivity().application as MyAplication).room.tareaDao()
+            dao.updateTask(updatedTask)
+
+            // Obtén los datos actualizados en el hilo de fondo
+            val updatedData = dao.getAllTask()
+
+            // Cambiar al hilo principal para actualizar la interfaz de usuario
+            lifecycleScope.launch(Dispatchers.Main) {
+                // Ahora llama a updateData() en el hilo principal
+                tareasAdapter.updateData(updatedData)
+            }
+        }
+    }
+
+    override fun mostrarOpciones(tarea: Tareas) {
+        val opciones = arrayOf("Eliminar", "Modificar")
+
+        val builder = AlertDialog.Builder(requireContext())
+        builder.setTitle("Opciones de tarea")
+            .setItems(opciones) { _, which ->
+                when (which) {
+                    0 -> onEliminarTarea(tarea) // Llamar a la interfaz para eliminar
+                    1 -> onModificarTarea(tarea) // Llamar a la interfaz para modificar
+                }
+            }
+
+        builder.create().show()
+    }
 
 }
 
